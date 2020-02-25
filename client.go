@@ -109,12 +109,12 @@ type Module struct {
 
 // Device defines netatmo device attributes.
 type Device struct {
-	ID                  string          `json:"_id"`
-	CipherID            string          `json:"cipher_id"`
-	SetupTime           int64           `json:"date_setup"`
-	LastSetupTime       int64           `json:"last_setup"`
-	Type                string          `json:"type"`
-	LastStatusStoreTime int64           `json:"last_status_store"`
+	ID                  string         `json:"_id"`
+	CipherID            string         `json:"cipher_id"`
+	SetupTime           int64          `json:"date_setup"`
+	LastSetupTime       int64          `json:"last_setup"`
+	Type                string         `json:"type"`
+	LastStatusStoreTime int64          `json:"last_status_store"`
 	ModuleName          string         `json:"module_name"`
 	Firmware            int            `json:"firmware"`
 	LastUpgradeTime     int64          `json:"last_upgrade"`
@@ -248,7 +248,7 @@ func NewClient(ctx context.Context, clientID, clientSecret, username, password s
 }
 
 // GetStationsData gathers station data from Netatmo API.
-// Reference: https://dev.netatmo.com/en-US/resources/technical/reference/weather/getstationsdata
+// Reference: https://dev.netatmo.com/apidocumentation/weather#getstationsdata
 func (c *Client) GetStationsData() ([]Device, *User, error) {
 	resp, err := c.client.Get("https://api.netatmo.com/api/getstationsdata")
 	if err != nil {
@@ -266,7 +266,7 @@ func (c *Client) GetStationsData() ([]Device, *User, error) {
 }
 
 // GetMeasureByTimeRange gathers measure data by specified time window.
-// Reference: https://dev.netatmo.com/en-US/resources/technical/reference/common/getmeasure
+// Reference: https://dev.netatmo.com/apidocumentation/weather#getmeasure
 func (c *Client) GetMeasureByTimeRange(deviceID, moduleID string, begin, end int64) ([]Measure, error) {
 	resp, err := c.client.Get("https://api.netatmo.com/api/getmeasure" +
 		"?device_id=" + deviceID +
@@ -287,7 +287,7 @@ func (c *Client) GetMeasureByTimeRange(deviceID, moduleID string, begin, end int
 }
 
 // GetMeasureByNewest gathers newest measure data.
-// Reference: https://dev.netatmo.com/en-US/resources/technical/reference/common/getmeasure
+// Reference: https://dev.netatmo.com/apidocumentation/weather#getmeasure
 func (c *Client) GetMeasureByNewest(deviceID, moduleID string) (*Measure, error) {
 	resp, err := c.client.Get("https://api.netatmo.com/api/getmeasure" +
 		"?device_id=" + deviceID +
